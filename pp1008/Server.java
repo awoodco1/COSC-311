@@ -1,25 +1,25 @@
 // Name: Adam "Nix" Woodcock
 // COSC 311, Fall 2019
 // Project: pp1008 - Programming Project #1
-// URL: 
+// URL: https://github.com/awoodco1/COSC-311/tree/master/pp1008
 
 package pp1008;
 
 public class Server {
 	
-	ServerQueue queue;
 	Customer cust;
 	int serviceTime;
 	
-	public Server(ServerQueue q) {
-		queue = q;
+	public Server() {
 		cust = null;
 		serviceTime = 0;
 	}
 	
-	public void newCust() {
-		if(queue.size() != 0)
+	public void newCust(ServerQueue queue) {
+		if(queue.getHead() != null)
 			cust = queue.pop();
+		else
+			cust = null;
 	}
 	
 	public void serveCust() {
@@ -32,6 +32,10 @@ public class Server {
 	
 	public int getServiceTime() {
 		return serviceTime;
+	}
+	
+	public void resetServiceTime() {
+		serviceTime = 0;
 	}
 
 }
