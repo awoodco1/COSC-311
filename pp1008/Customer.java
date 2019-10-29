@@ -7,14 +7,12 @@ package pp1008;
 
 public class Customer {
 	int wait;
-	Server serv;
 	Customer next;
 	int serviceTime;
 	
 	public Customer(int time) {
 		wait = 0;
 		next = null;
-		serv = null;
 		serviceTime = time;
 	}
 	
