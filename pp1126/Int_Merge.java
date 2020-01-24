@@ -14,19 +14,17 @@ public class Int_Merge {
 	
 	public int data[];
 	public long startTime;
-	public int tick;
 	
 	public Int_Merge(int input[]){
 		data = input;
 		startTime = System.nanoTime();
-		tick = 1;
+	}
+
+	public long getTimeSpent() {
+		return System.nanoTime() - startTime;
 	}
 	
 	public int[] mergeSort(int arr[]) {
-		long timeStamp = System.nanoTime() - startTime;
-		System.out.println("Tick: " + tick + " Timestamp: " + timeStamp);
-		tick++;
-		
 		if(arr.length == 1)
 			return arr;
 		
@@ -47,10 +45,6 @@ public class Int_Merge {
 	}
 	
 	public int[] merge(int[] a1, int[] a2) {
-		long timeStamp = System.nanoTime() - startTime;
-		System.out.println("Tick: " + tick + " Timestamp: " + timeStamp);
-		tick++;
-		
 		int[] a3 = new int[0];
 		while(a1.length > 0 && a2.length > 0) {
 			if(a1[0] > a2[0]) {
@@ -110,24 +104,30 @@ public class Int_Merge {
 				a3[a3.length - 1] = a2[i];
 			}
 		}
-		
 		return a3;
 	}
 	
 	public static void main(String args[]) throws IOException{
 		Random rand = new Random(97);
-		int[] data = new int[20];
-		for(int i = 0; i < 20; i++) {
-			data[i] = rand.nextInt(50);
-		}
-		
 		System.out.println("Internal Mergesort:");
-		Int_Merge intmerge = new Int_Merge(data);
-		intmerge.data = intmerge.mergeSort(intmerge.data);
-		
+		for(int i = 0; i < 50; i++) {
+			int[] input = new int[i + 1];
+			for(int j = 0; j < i + 1; j++) {
+				input[j] = rand.nextInt(50) + 1;
+			}
+			Int_Merge intmerge = new Int_Merge(input);
+			intmerge.mergeSort(intmerge.data);
+			System.out.println(intmerge.getTimeSpent());
+		}
 		System.out.println("External Mergesort:");
-		Ext_Merge extmerge = new Ext_Merge(data);
-		RandomAccessFile extData = extmerge.mergeSort(extmerge.data);
-		
+		for(int i = 0; i < 50; i++) {
+			int[] input = new int[i + 1];
+			for(int j = 0; j < i + 1; j++) {
+				input[j] = rand.nextInt(50) + 1;
+			}
+			Ext_Merge extmerge = new Ext_Merge(input);
+			extmerge.mergeSort(extmerge.data);
+			System.out.println(extmerge.getTimeSpent());
+		}
 	}
 }

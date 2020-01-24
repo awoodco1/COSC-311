@@ -12,7 +12,6 @@ import java.io.RandomAccessFile;
 public class Ext_Merge {
 	RandomAccessFile data;
 	public long startTime;
-	public int tick;
 	public int fileCount;
 	
 	public Ext_Merge(int input[]) throws IOException {
@@ -21,15 +20,14 @@ public class Ext_Merge {
 			data.writeInt(input[i]);
 		}
 		startTime = System.nanoTime();
-		tick = 1;
 		fileCount = 0;
 	}
 	
+	public long getTimeSpent() {
+		return System.nanoTime() - startTime;
+	}
+	
 	public RandomAccessFile mergeSort(RandomAccessFile input) throws IOException{
-		long timeStamp = System.nanoTime() - startTime;
-		System.out.println("Tick: " + tick + " Timestamp: " + timeStamp);
-		tick++;
-		
 		if(input.length() == 4) {
 			return input;
 		}
@@ -57,10 +55,6 @@ public class Ext_Merge {
 	}
 	
 	public RandomAccessFile merge(RandomAccessFile f1, RandomAccessFile f2) throws IOException {
-		long timeStamp = System.nanoTime() - startTime;
-		System.out.println("Tick: " + tick + " Timestamp: " + timeStamp);
-		tick++;
-		
 		RandomAccessFile f3 = new RandomAccessFile("file" + fileCount + ".ref", "rw");
 		fileCount++;
 		
@@ -97,7 +91,6 @@ public class Ext_Merge {
 		}
 		f1.close();
 		f2.close();
-		
 		return f3;
 	}
 }
